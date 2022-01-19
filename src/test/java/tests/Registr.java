@@ -1,16 +1,34 @@
 package tests;
 
+import models.User;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class Registr extends TestBase {
 
     @Test
-    public void registrationSuccess(){
+    public void registrationSuccess() {
 
+        int index = (int)(System.currentTimeMillis()/1000%3600);
         app.getUserHelper().openLogRegForm();
-        app.getUserHelper().fillRegistrationForm("Mastertest2@gmail.com","Nnoa12345$");
+        app.getUserHelper().fillRegistrationForm("Mastertest"+index+"@gmail.com","Nnoa12345$");
         app.getUserHelper().submitRegForm();
 
+        Assert.assertTrue(app.getUserHelper().isRegistrSuccess());
+    }
+
+    @Test
+    public void registrationSuccessModel() {
+
+        int index = (int)(System.currentTimeMillis()/1000%3600);
+
+        User user = new User().witnEmail("Mastertest"+index+"@gmail.com").witnPassword("Nnoa12345$");
+
+        app.getUserHelper().openLogRegForm();
+        app.getUserHelper().fillRegistrationForm(user);
+        app.getUserHelper().submitRegForm();
+
+        Assert.assertTrue(app.getUserHelper().isRegistrSuccess());
     }
 
 }

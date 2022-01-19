@@ -1,6 +1,8 @@
 package tests;
 
 
+import models.User;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class Login extends TestBase{
@@ -11,8 +13,20 @@ public class Login extends TestBase{
         app.getUserHelper().openLogRegForm();
         app.getUserHelper().fillLoginForm("noa@gmail.com", "Nnoa12345$");
         app.getUserHelper().submitLoginForm();
+
+        Assert.assertTrue(app.getUserHelper().isLoginSuccess());
     }
 
+    @Test
+    public void loginSuccessModel(){
+    User user = new User().witnEmail("noa@gmail.com").witnPassword("Nnoa12345$");
+
+        app.getUserHelper().openLogRegForm();
+        app.getUserHelper().fillLoginForm(user);
+        app.getUserHelper().submitLoginForm();
+
+        Assert.assertTrue(app.getUserHelper().isLoginSuccess());
+    }
 
 }
 //    WebDriver wd;
