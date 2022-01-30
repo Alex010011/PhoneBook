@@ -56,7 +56,7 @@ public class UserHelper extends HelperBase{
 
     public boolean isRegistrSuccess() {
 
-        WebDriverWait wait = new WebDriverWait(wd,5);
+        WebDriverWait wait = new WebDriverWait(wd,10);
         wait.until(ExpectedConditions.urlToBe("https://contacts-app.tobbymarshall815.vercel.app/contacts"));
 
         WebElement message = wd.findElement(By.cssSelector(".contact-page_message__2qafk"));
@@ -65,12 +65,27 @@ public class UserHelper extends HelperBase{
     }
 
     public boolean isLoginSuccess() {
-        WebDriverWait wait = new WebDriverWait(wd,5);
+        WebDriverWait wait = new WebDriverWait(wd,10);
         wait.until(ExpectedConditions.urlToBe("https://contacts-app.tobbymarshall815.vercel.app/contacts"));
 
         WebElement message = wd.findElement(By.cssSelector("button"));
         String text = message.getText();
 
         return text.equals("Sign Out");
+    }
+
+    public void logout() {
+        click(By.cssSelector("button"));
+    }
+
+    public boolean isLogoutPresents() {
+        return isElementPresent(By.cssSelector("button"));
+    }
+
+
+    public void login(User user) {
+        openLogRegForm();
+        fillLoginForm(user);
+        submitLoginForm();
     }
 }

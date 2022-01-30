@@ -2,11 +2,19 @@ package tests;
 
 import models.User;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class Registr extends TestBase {
 
-    @Test
+    @BeforeMethod
+    public void preCondition(){
+
+        if(app.getUserHelper().isLogoutPresents())
+            app.getUserHelper().logout();
+    }
+
+@Test
     public void registrationSuccess() {
 
         int index = (int)(System.currentTimeMillis()/1000%3600);
